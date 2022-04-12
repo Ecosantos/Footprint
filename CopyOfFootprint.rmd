@@ -65,6 +65,13 @@ Dashboard_Data<-Dashboard_Data%>%add_case(MEDIA_UC_MA)
 #Check if MEDIA is here
 #Dashboard_Data%>%tail(1)
 
+Dashboard_Data_MEDIA<-Dashboard_Data%>%
+filter(UC_NAME2=="MEDIA_UC_MA")%>% select(UC_NAME2,PLA_MAN2,MATA_ARE2,HFP1993:HFP2013)%>%
+  pivot_longer(!c(UC_NAME2:MATA_ARE2),names_to="ANO",values_to="Impacto")%>%
+  mutate(ANO=str_replace(ANO,"HFP", ""))%>%
+  mutate(Impacto=round(Impacto,2))
+
+
 
 pal_man<- colorFactor(c("tomato","royalblue2"), domain = df<-Dashboard_Data$PLA_MAN2)
 df<-Dashboard_Data
@@ -82,17 +89,17 @@ output$map <- renderLeaflet({
 leaflet(Dashboard_Data, height=500, width=1000)%>%
    addMiniMap()%>%
   addTiles() %>%  # Add default OpenStreetMap map tiles
-addMarkers(layerId = ~UC_NAME2, 
+#    addMarkers(lng = ~Long, lat = ~Lat)%>%
+  addMapResetButton()%>%
+addCircleMarkers(
+           layerId = ~UC_NAME2, 
                  lng = ~Long, lat = ~Lat,
 #                 clusterOptions = markerClusterOptions(),
-#                  color = ~ifelse(PLA_MAN2=="Sim","Blue","Red"),
+                  color = ~ifelse(PLA_MAN2=="Sim","Blue","Red"),
 #                       color = ~pal_man(PLA_MAN2),
-#                       color = ~Rich_pal(bins),
-#                       color = ~pal(na.omit(Richness+1)),
              popup = ~paste0(UC_NAME2,
 	"<br/><strong>Jurisprudence</strong>:",ESF_ADM2,
-	"<br/><strong>Management plan.:</strong>",PLA_MAN2))%>%
-    addMapResetButton()
+	"<br/><strong>Management plan.:</strong>",PLA_MAN2))
 })
 
 leafletOutput('map')  
@@ -108,7 +115,7 @@ Foto explicativa com o layout tbm
 
 
 
-Column {data-width=350}
+Column {data-width=350, height=450}
 -----------------------------------------------------------------------
 
 ### Evolução do impacto antrópico - 1993 a 2013
@@ -127,23 +134,35 @@ click_marker <- eventReactive(input$map_marker_click, {
 })
 
 
+
 #Funciona
 data_for_chart <- reactive({
- return(df[df$UC_NAME2 == click_marker(), ])
+  return(df[df$UC_NAME2 == click_marker(), ])
 })
 
+
 renderPlotly({
-  
-  data_for_chart()%>%
+    data_for_chart2<-data_for_chart()%>%
   as_tibble()%>%
   select(UC_NAME2,PLA_MAN2,MATA_ARE2,HFP1993:HFP2013)%>%
   pivot_longer(!c(UC_NAME2:MATA_ARE2),names_to="ANO",values_to="Impacto")%>%
   mutate(ANO=str_replace(ANO,"HFP", ""))%>%
+    mutate(Impacto=round(Impacto,2))
+  Dashboard_Data_MEDIA%>%
   plotly::plot_ly(.,
         x = .$ANO,
           y = .$Impacto,
           type = "scatter",
-          mode = 'lines+markers') 
+          mode = 'lines+markers',name="Mata Atlântica")%>%
+    add_trace(data_for_chart2, 
+	x = data_for_chart2$ANO, 
+		y = data_for_chart2$Impacto, mode = "lines+markers",name=data_for_chart2$UC_NAME2) %>%
+  layout(hovermode = "x unified",
+    #title ="Evolução do impacto antrópico",
+         yaxis = list(title = "Impacto Antrópico",range = c(0,55)),
+    showlegend = T, 
+    legend = list(orientation = 'h')
+  )
 
 })
 
