@@ -86,10 +86,10 @@ Column {.tabset}
 ```{r}
 output$map <- renderLeaflet({
 
-leaflet(Dashboard_Data, height=500, width=1000)%>%
-   addMiniMap()%>%
+leaflet(Dashboard_Data, width="1000px")%>%
   addTiles() %>%  # Add default OpenStreetMap map tiles
-#    addMarkers(lng = ~Long, lat = ~Lat)%>%
+    addMiniMap()%>%
+ #    addMarkers(lng = ~Long, lat = ~Lat)%>%
   addMapResetButton()%>%
 addCircleMarkers(
            layerId = ~UC_NAME2, 

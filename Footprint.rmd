@@ -12,7 +12,7 @@ library(tidyverse)
 library(knitr)
 library(leaflegend)
 library(leaflet)
-library(leaflet.extras)
+#library(leaflet.extras)
 library(shiny)
 library(shinyjs)
 library(highcharter)
@@ -71,8 +71,9 @@ filter(UC_NAME2=="MEDIA_UC_MA")%>% select(UC_NAME2,PLA_MAN2,MATA_ARE2,HFP1993:HF
   mutate(ANO=str_replace(ANO,"HFP", ""))%>%
   mutate(Impacto=round(Impacto,2))
 
-pal_man<- colorFactor(palette=c("tomato","royalblue2"), domain = Dashboard_Data$PLA_MAN2)
 
+
+pal_man<- colorFactor(c("tomato","royalblue2"), domain = df<-Dashboard_Data$PLA_MAN2)
 df<-Dashboard_Data
 ```
 
@@ -85,18 +86,17 @@ Column {.tabset}
 ```{r}
 output$map <- renderLeaflet({
 
-leaflet(Dashboard_Data, height=500, width=1000)%>%
-   addMiniMap()%>%
+leaflet(Dashboard_Data, width="1000px")%>%
   addTiles() %>%  # Add default OpenStreetMap map tiles
-#addMapResetButton()%>%
-    addCircleMarkers(layerId = ~UC_NAME2, 
+    addMiniMap()%>%
+ #    addMarkers(lng = ~Long, lat = ~Lat)%>%
+  addMapResetButton()%>%
+addCircleMarkers(
+           layerId = ~UC_NAME2, 
                  lng = ~Long, lat = ~Lat,
 #                 clusterOptions = markerClusterOptions(),
-#                  color = ~ifelse(PLA_MAN2 == "Sim","Blue","Red"),
-#                   color = "black,
+                  color = ~ifelse(PLA_MAN2=="Sim","Blue","Red"),
 #                       color = ~pal_man(PLA_MAN2),
-#                       color = ~Rich_pal(bins),
-#                       color = ~pal(na.omit(Richness+1)),
              popup = ~paste0(UC_NAME2,
 	"<br/><strong>Jurisprudence</strong>:",ESF_ADM2,
 	"<br/><strong>Management plan.:</strong>",PLA_MAN2))
