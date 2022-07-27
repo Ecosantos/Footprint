@@ -1,0 +1,19 @@
+---
+title: "iNatspp"
+author: "Gabriel Santos"
+date: "04/06/2022"
+output: html_document
+---
+  <script type="text/javascript" charset="utf-8" src="https://www.inaturalist.org/observations?nelat=-24.92&nelng=-32.07&radius=5"></script>
+  <table class="inat-footer">
+      <td class="inat-value">
+        <strong>
+            <a rel="nofollow" href="https://www.inaturalist.org/observations?nelat=-24.92&nelng=-32.07&radius=5">Veja mais registros em iNaturalis  <nobr>iNaturalist »</nobr></a>
+        </strong>
+      </td>
+  </table>
+
+
+
+#Retirado de
+https://www.inaturalist.org/observations/widget?project_id=84708
