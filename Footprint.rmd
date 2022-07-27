@@ -28,8 +28,9 @@ library(shinyjs)
 library(highcharter)
 library(DT)
 library(plotly)
+library(ggiraph)
 
-Dashboard_Data<-read.csv("DashboardData.csv")
+Dashboard_Data<-readRDS("Dashboard_Data_NEW.rds")
 ```
 
 ```{r}
@@ -114,7 +115,7 @@ leaflet(Dashboard_Data, width="1000px")%>%
 addCircleMarkers(
            layerId = ~UC_NAME2, 
                  lng = ~Long, lat = ~Lat,
-#                 clusterOptions = markerClusterOptions(),
+                 clusterOptions = markerClusterOptions(),
                   color = ~ifelse(PLA_MAN2=="Sim","Blue","Red"),
 #                       color = ~pal_man(PLA_MAN2),
              popup = ~paste0(UC_NAME2,
@@ -209,12 +210,45 @@ renderPlotly({
 
 })
 
+
 ```
 
 
 ### Chart C
 
-Mais informações serão adicionadas aqui em breve
+```{r}
+
+hsize<-2
+
+
+data_for_chart <- reactive({
+  return(df[df$UC_NAME2 == click_marker(), ])
+})
+
+renderPlot({
+  
+plot <-data_for_chart()%>%
+unnest(cols = c(Endanger))%>%
+group_by(threat.status)%>%
+summarise(N=n())%>%
+mutate(x=hsize)%>%
+ggplot(., aes(x = hsize, y = N, fill = threat.status)) +
+  geom_col(color = "black") +
+  geom_text(aes(label = threat.status),
+             position = position_stack(vjust = 0.5)) +
+  coord_polar(theta = "y") +
+  scale_fill_brewer(palette = "GnBu") +
+  xlim(c(0.2, hsize + 0.5)) +
+  theme(panel.background = element_rect(fill = "white"),
+        panel.grid = element_blank(),
+        axis.title = element_blank(),
+        axis.ticks = element_blank(),
+        axis.text = element_blank())
+
+return(plot) #call object p
+
+})
+```
 
 
 
