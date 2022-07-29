@@ -1,0 +1,13 @@
+name: Footprint
+title: Footprint
+username:
+account: ecosantos
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 6390487
+bundleId: 6145684
+url: https://ecosantos.shinyapps.io/Footprint/
+when: 1659100901.51432
+lastSyncTime: 1659100901.51432
+asMultiple: FALSE
+asStatic: FALSE

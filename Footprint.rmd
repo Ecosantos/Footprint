@@ -3,9 +3,11 @@ title: "Projeto UCFootprint"
 output: flexdashboard::flex_dashboard
 runtime: shiny
 resource_files:
-- Foto 1.JPG
+- Foto Dev.JPG
 - INMA sem fundo original horizontal.jpg
-- Panorama footprint.jpg
+- Panorama.png
+- Venter et al. 2016 - Figure 1 PT.png
+- Venter et al. 2016 - Figure 2 PT.png
 extra_dependencies: ["float"]
 ---
 
@@ -13,9 +15,8 @@ extra_dependencies: ["float"]
 knitr::opts_chunk$set(fig.pos = "!H", out.extra = "")
 ```
 
+# Evolução do impacto antrópico nas Unidades de Conservação na Mata Atlântica
 
-Evolução do impacto antrópico nas Unidades de Conservação na Mata Atlântica
-=====================================
 ```{r setup, warning=FALSE, include=FALSE}
 library(flexdashboard)
 library(tidyverse)
@@ -88,19 +89,15 @@ pal_man<- colorFactor(c("tomato","royalblue2"), domain = df<-Dashboard_Data$PLA_
 df<-Dashboard_Data
 ```
 
-
-Column {.tabset}
------------------------------------------------------------------------
-
+## Column {.tabset}
 
 ### Uso e layout
 
 #### Uso e layout
 
-O projeto UCFootprint é basicamente uma mapa interativo que mostra a evolução do impacto antrópico em cada Unidade de Conservação (UC) da Mata atlântica. São três componentes principais que formam o projeto: um mapa interativo onde o usuário escolhe a UC de interesse, um painel com gráfico mostrando a evolução do impacto antrópico na UC comparado com a média da Mata Atlântica e uma terceiro painel que está em braco nessa versão preliminar. Você pode conferir um panorâma do projeto UCFootprint na figura abaixo. Espero que todas as demais informações estejam intuítivas.
+O projeto UCFootprint é basicamente uma mapa interativo que mostra a evolução do impacto antrópico em cada Unidade de Conservação (UC) da Mata atlântica. São três componentes principais que formam o projeto: um mapa interativo onde o usuário escolhe a UC de interesse; Um gráfico mostrando a evolução do impacto antrópico na UC escolhida comparado com a média da Mata Atlântica; E uma terceiro com a proporção de espécies em cada status de ameaça conforme o [Livro Vermelho da Flora do Brasil](http://cncflora.jbrj.gov.br/portal/pt-br/listavermelha). Você pode conferir um panorama do projeto UCFootprint na figura abaixo. Espero que todas as demais informações estejam intuitivas.
 
-![](Panorama footprint.jpg){width=80%}
-
+![](Panorama.png){width="80%"}
 
 ### Mapa interativo
 
@@ -126,44 +123,33 @@ addCircleMarkers(
 leafletOutput('map')  
 ```
 
-
-
 ### Global Human Footprint e Mata Atlântica
-
 
 Uma breve explicação
 
 #### Um pouco sobre o Global Human Footprint
 
+Somos mais de 7 bilhões de pessoas no mundo. O impacto humano sobre os recursos naturais da terra (ex. água, minerais, florestas) é sem precedentes na história humana. Se por um lado aumenta a pressão que a humanidade exerce sobre o planeta, por outro cresce também nossa capacidade de monitorar esses impactos e propor soluções mais inovadoras para monitorar e preservar o planeta. Uma dessas iniciativas tem sido a proposta de um índice chamado de "Global Human Footprint" proposto em 2002 com dados de 1990, onde oito diferentes impactos antrópicos (ex. pastagens,luz noturna,rodovia) foram mapeados globalmente para gerar um mapa de locais mais "selvagens" e modificados do planeta. De lá pra cá, as imagens de satélite melhoraram, a precisão do tamanho do impacto aumentou, e os computadores permitiram processar cada vez mais dados. A partir da proposta do Global Human Footprint, podemos mapear como a paisagem se transformou através de múltiplos fatores. Para facilitar, Venter et al. (2016) produziu mapas globais do Global Human Footprint para os anos de 1993, 2000, 2005, 2010 e 2013 permitindo acompanhar a evolução desses impactos por 2 décadas. Outras iniciativas tem utilizado uma abordagem semelhante para produzir mapas ainda mais recentes.
 
-Somos mais de 7 bilhões de pessoas no mundo. O impacto humano sobre os recursos naturais da terra (ex. água, minerais, florestas) é sem precedentes na história humana. Se por um lado aumenta a pressão que a humanidade exerce sobre o planeta, por outro cresce também nossa capacidade de monitorar esses impactos e propor soluções mais inovadoras para monitorar e preservar o planeta. Uma dessas iniciativas tem sido a proposta de um índice chamado de “Global Human Footprint” proposto em 2002 com dados de 1990, onde oito diferentes impactos antrópicos (ex. pastagens,luz noturna,rodovia) foram mapeados globalmente para gerar um mapa de locais mais “selvagens” e modificados do planeta. De lá pra cá, as imagens de satélite melhoraram, a precisão do tamanho do impacto aumentou, e os computadores permitiram processar cada vez mais dados. A partir da proposta do Global Human Footprint, podemos mapear como a paisagem se transformou através de múltiplos fatores. Para facilitar, Venter et al. (2016) produziu mapas globais do Global Human Footprint para os anos de 1993, 2000, 2005, 2010 e 2013 permitindo acompanhar a evolução desses impactos por 2 décadas. Outras iniciativas tem utilizado uma abordagem semelhante para produzir mapas ainda mais recentes. 
+![](Venter%20et%20al%202016%20-%20Figure%201%20PT.png){width="450px"}
 
-
-![](https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fsdata.2016.67/MediaObjects/41597_2016_Article_BFsdata201667_Fig1_HTML.jpg?as=webp){width=450px}![](https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fsdata.2016.67/MediaObjects/41597_2016_Article_BFsdata201667_Fig2_HTML.jpg?as=webp){width=450px}
-
-
+![](Venter%20et%20al%202016%20-%20Figure%202%20PT.png){width="450px"}
 
 #### A Mata atlântica e as Unidades de conservação
 
 Uma das formas mais eficientes de garantir a sobrevivência das espécies e o bom funcionamento da Mata Atlântica tem sido a criação de Unidades de Conservação (UCs). As UCs são áreas protegidas com diferentes objetivos como a proteção da biodiversidade e proteção de córregos e nascentes, por exemplo, que podem ou não ser abertas ao público para o turismo, lazer e em alguns casos a extração de produtos florestais específicos para alimentação ou outros usos (ex. fármacos e cosméticos).
 
-Apesar de legalmente protegidas, as UCs continuam sofrendo os impactos que persistem nas áreas ao seu redor bem como sendo alvo de atividades ilegais como a caça, a pesca, o tráfico de animais e plantas nativas, a introdução de espécies exóticas e o corte seletivo de madeira. Com recursos e pessoal limitados nas UCs do Brasil, novas tecnologias podem se tornar importantes aliados para o melhor planejamento e gestão das Unidades de conservação. Algumas iniciativas como o MapBiomas, XXXxX, YYYY são exemplos de ferramentas de fácil acesso para pesquisadores, gestores e tomadores de decisão monitorar as modificações na paisagem e quantificar seus impactos sobre as UCs. 
+Apesar de legalmente protegidas, as UCs continuam sofrendo os impactos que persistem nas áreas ao seu redor bem como sendo alvo de atividades ilegais como a caça, a pesca, o tráfico de animais e plantas nativas, a introdução de espécies exóticas e o corte seletivo de madeira. Com recursos e pessoal limitados nas UCs do Brasil, novas tecnologias podem se tornar importantes aliados para o melhor planejamento e gestão das Unidades de conservação. Algumas iniciativas como o [MapBiomas](https://plataforma.brasil.mapbiomas.org/?activeBaseMap=8&layersOpacity=70&activeModule=coverage&activeModuleContent=coverage%3Acoverage_main&activeYear=2020&mapPosition=-15.114553%2C-51.416016%2C4&timelineLimitsRange=1985%2C2020&baseParams%5BterritoryType%5D=1&baseParams%5Bterritories%5D=1%3BBrasil%3B1%3BPa%C3%ADs%3B-33.75117799399999%3B-73.990449969%3B5.271841076999976%3B-28.847639913999956&baseParams%5BactiveClassesLevelsListItems%5D=1%2C7%2C8%2C9%2C10%2C2%2C11%2C12%2C13%2C14%2C15%2C3%2C16%2C17%2C26%2C29%2C30%2C31%2C32%2C27%2C33%2C34%2C35%2C18%2C19%2C4%2C20%2C21%2C22%2C23%2C5%2C24%2C28%2C6), [ForestWatching](https://www.globalforestwatch.org/map/?map=eyJjZW50ZXIiOnsibGF0IjotMjUuNDk3NTM3ODIzOTk4NDEsImxuZyI6LTQ0LjI1ODY4NTk0NjIwNDU0NH0sInpvb20iOjMuMjczMDg2MzI3Mzc0NjM1LCJiYXNlbWFwIjp7InZhbHVlIjoicGxhbmV0IiwibmFtZSI6InBsYW5ldF9tZWRyZXNfbm9ybWFsaXplZF9hbmFseXRpY18yMDIxLTA1X21vc2FpYyIsImNvbG9yIjoiIn0sImRhdGFzZXRzIjpbeyJkYXRhc2V0IjoiZ2xhZC1zMi1kZWZvcmVzdGF0aW9uLWFsZXJ0cyIsIm9wYWNpdHkiOjEsInZpc2liaWxpdHkiOnRydWUsImxheWVycyI6WyJkZWZvcmVzdGF0aW9uLWFsZXJ0cy1nbGFkLXMyIl19LHsiZGF0YXNldCI6ImdsYWQtZGVmb3Jlc3RhdGlvbi1hbGVydHMiLCJvcGFjaXR5IjoxLCJ2aXNpYmlsaXR5Ijp0cnVlLCJsYXllcnMiOlsiZGVmb3Jlc3RhdGlvbi1hbGVydHMtZ2xhZCJdfSx7ImRhdGFzZXQiOiJyYWRkLWRlZm9yZXN0YXRpb24tYWxlcnRzIiwib3BhY2l0eSI6MSwidmlzaWJpbGl0eSI6dHJ1ZSwibGF5ZXJzIjpbImRlZm9yZXN0YXRpb24tYWxlcnRzLXJhZGQiXX0seyJkYXRhc2V0IjoiZmlyZS1hbGVydHMtdmlpcnMiLCJvcGFjaXR5IjoxLCJ2aXNpYmlsaXR5Ijp0cnVlLCJsYXllcnMiOlsiZmlyZS1hbGVydHMtdmlpcnMiXX0seyJkYXRhc2V0IjoicG9saXRpY2FsLWJvdW5kYXJpZXMiLCJsYXllcnMiOlsiZGlzcHV0ZWQtcG9saXRpY2FsLWJvdW5kYXJpZXMiLCJwb2xpdGljYWwtYm91bmRhcmllcyJdLCJvcGFjaXR5IjoxLCJ2aXNpYmlsaXR5Ijp0cnVlfV19&mapPrompts=eyJvcGVuIjp0cnVlLCJzdGVwc0tleSI6InJlY2VudEltYWdlcnkifQ%3D%3D) e o Painel de [Unidades de Conservação Brasileiras](https://app.powerbi.com/view?r=eyJrIjoiMDNmZTA5Y2ItNmFkMy00Njk2LWI4YjYtZDJlNzFkOGM5NWQ4IiwidCI6IjJiMjY2ZmE5LTNmOTMtNGJiMS05ODMwLTYzNDY3NTJmMDNlNCIsImMiOjF9) são exemplos de ferramentas de fácil acesso para pesquisadores, gestores e tomadores de decisão monitorar as modificações na paisagem e quantificar seus impactos sobre as UCs.
 
 O *projeto UCFootprint* da Mata Atlântica surge na tentativa de fornecer uma ferramenta adicional para explorar a evolução das pressões antrópicas da Mata Atlântica. Com base no Global Human Footprint extraído de cada UC registrada na Mata Atlântica, o projeto UCFootprint fornece uma série histórica simplificada, padronizada, reproduzível e comparável em diferentes escalas para o monitoramento e fomentar o despertar de ideias que contribuir para a conservação da Mata Atlântica.
 
-
-#### Críticas
-Em breve
-
-
 #### Futuro
-Em breve
 
-Column {data-width=350, height=450}
------------------------------------------------------------------------
+Incorporar registros de ciência cidadã, espécie estimada em cada unidade de conservação, débito de reflorestamento e outros dados estão previstos para serem incorporados na plataforma UCFootprint. Vamos ver até onde podemos chegar. Volte em breve para acompanhar a evolução da plataforma!
+
+## Column {data-width="350," height="450"}
 
 ### Evolução do impacto antrópico - 1993 a 2013
-
 
 ```{r}
 
@@ -213,8 +199,7 @@ renderPlotly({
 
 ```
 
-
-### Chart C
+### Proporção de espécies ameaçadas na Unidade de Conservação
 
 ```{r}
 
@@ -250,38 +235,35 @@ return(plot) #call object p
 })
 ```
 
+# Sobre
 
+<h1>Sobre</h1>
 
-Sobre {data-orientation=rows}
-=====================================
+Seja bem-vindo(a) ao projeto "UCFootprint: Evolução do impacto antrópico nas Unidades de Conservação da Mata Atlântica. O projeto está sendo desenvolvido pelo pesquisador Gabriel Santos como parte do plano de trabalho sob financiamento do Projeto de Capacitação Institucional Nº3:"Diagnóstico das unidades de conservação e espécies ameaçadas de extinção na Mata Atlântica brasileira" do Instituto Nacional da Mata Atlântica.
 
-
-
-Column {.tabset}
------------------------------------------------------------------------
-
-### Sobre
-Seja bem-vindo(a) ao projeto "UCFootprint: Evolução do impacto antrópico nas Unidades de Conservação da Mata Atlântica. O projeto está sendo desenvolvido pelo pesquisador Gabriel Santos como parte do plano de trabalho sob financiamento do Projeto de Capacitação Institucional Nº3: "Diagnóstico das unidades de conservação e espécies ameaçadas de extinção na Mata Atlântica brasileira" do Instituto Nacional da Mata Atlântica.
-
-O projeto encontra-se em fase inicial de desenvolvimento mas já permite ter uma visão sobre o como a versão final do aplicativo deve ser. 
-
+O projeto encontra-se em fase inicial de desenvolvimento mas já permite ter uma visão sobre o como a versão final do aplicativo deve ser.
 
 Caso tenha interesse em contribuir com ideias ou diretamente com o aplicativo sinta-se a vontade para entrar em contato.
 
+<h1>Referências</h1>
 
-#### Gabriel Silva dos Santos
+Os dados utilizados no projeto UCFootprint são oriundos de outras iniciativas a qual muito agradecemos.
 
-Gabriel S. Santos é pesquisador do Instituto Nacional da Mata Atlântica [(INMA)](http://inma.gov.br/).
+| Dados                                        | Fonte                                                                                                                                                                                             |
+|---------------------|---------------------------------------------------|
+| Registro de espécies ameaçadas de extinção   | CNCFlora 2013 - <http://ipt.jbrj.gov.br/jbrj/resource?r=redlist_2013_occs>                                                                                                                        |
+| Unidades de conservação da Mata Atlântica    | Compiladas por Carol Loss no âmbito do plano de trabalho no Instituto Nacional da Mata Atlântica, projeto PCI nº3. Mais informações entre em contato com ela [email](mailto:carol.loss@gmail.com) |
+| Global Human Footpring 1993 e 2013           | Venter et al. 2016 - Scientific Data, DOI: 10.1038/sdata.2016.67                                                                                                                                  |
+| Global Human Footpring 1993,1995, 2010, 2013 | <https://github.com/scabecks/humanfootprint_2000-2013/tree/master/spatial_data/hfp>                                                                                                               |
 
-Para entrar em contato basta [Entre em contato](mailto:ssantos.gabriel@gmail.com)
+<h1>Desenvolvedor</h1>
 
-![](Foto 1.JPG){width=20%}
+|                                  |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |     |
+|:----------------:|-------------------------------------|------------------|
+| ![](Foto%20Dev.JPG){width="159"} | **Gabriel S. Santos** atualmente é pesquisador vinculado ao Instituto Nacional da Mata Atlântica. Tem interesse em diversas linhas de pesquisa que envolvam o uso de estatística, teoria e o envolvimento da comunidade local, entre elas análise de viabilidade populacional da vida selvagem, evolução da história de vida dos organismos, proposta de manejo de espécies exóticas e ameaçadas e ciência cidadã. Você pode acompanhar mais sobre os projetos desenvolvidos através do [site](https://ecosantos.netlify.app/), [Lattes](http://lattes.cnpq.br/1714610835853424), ou mande um [email](mailto:ssantos.gabriel@gmail.com) |     |
 
+<h1>Parceiro</h1>
 
-
-
-#### Parceiro
-![](INMA sem fundo original horizontal.jpg){width=40%}
-
-
-
+|                                                                    |     |
+|--------------------------------------------------------------------|-----|
+| ![](INMA%20sem%20fundo%20original%20horizontal.jpg){width="3.9cm"} |     |
